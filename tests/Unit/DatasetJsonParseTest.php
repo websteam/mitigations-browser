@@ -57,6 +57,8 @@ class DatasetJsonParseTest extends TestCase
             $groupedByType[$object['type']][] = $object;
         }
 
+        var_dump(array_keys($groupedByType));
+
         $this->assertTrue(count($groupedByType) > 0);
         $this->assertArrayHasKey('attack-pattern', $groupedByType);
     }
