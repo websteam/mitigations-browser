@@ -8,16 +8,11 @@ use Tests\TestCase;
 
 class DatasetJsonParseTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     public function testItCanReadTestedFile(): string
     {
-        $uri = storage_path('app/enterprise-attack.json');
+        $uri = config('mitre.dataset_uri');
 
         $fileContents = \file_get_contents($uri);
-
-        $this->assertFileIsReadable($uri);
 
         $this->assertNotFalse($fileContents);
         $this->assertIsString($fileContents);
@@ -57,9 +52,7 @@ class DatasetJsonParseTest extends TestCase
             $groupedByType[$object['type']][] = $object;
         }
 
-        var_dump(array_keys($groupedByType));
-
-        $this->assertTrue(count($groupedByType) > 0);
+        $this->assertGreaterThan(0, count($groupedByType));
         $this->assertArrayHasKey('attack-pattern', $groupedByType);
     }
 }

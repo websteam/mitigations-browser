@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('tactics', \App\Http\Controllers\TacticController::class)->only([
+    'index',
+    'show',
+]);
+
+Route::resource('techniques', \App\Http\Controllers\TechniqueController::class)->only([
+    'index',
+    'show',
+]);
