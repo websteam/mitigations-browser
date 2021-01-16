@@ -2,53 +2,70 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Http\Mitre\DatasetRequest;
+use App\Http\Mitre\GetDatasetFromUriException;
 use Tests\TestCase;
 
 class DatasetJsonParseTest extends TestCase
 {
-    public function testItCanReadTestedFile(): string
+    /**
+     * @throws GetDatasetFromUriException
+     */
+    public function testItCouldNotGetDataset()
     {
-        $uri = config('mitre.dataset_uri');
+        $request = new DatasetRequest('http://unexisting.domain.com');
 
-        $fileContents = \file_get_contents($uri);
+        $this->expectException(GetDatasetFromUriException::class);
 
-        $this->assertNotFalse($fileContents);
-        $this->assertIsString($fileContents);
+        $request->get();
 
-        return $fileContents;
+        $this->assertNull($request->getBody());
+    }
+
+    /**
+     * @return DatasetRequest
+     * @throws GetDatasetFromUriException
+     */
+    public function testItCanReadTestedFile(): DatasetRequest
+    {
+        $request = new DatasetRequest();
+        $request->get();
+
+        $this->assertNotNull($request->getBody());
+        $this->assertIsString($request->getBody());
+
+        return $request;
     }
 
     /**
      * @depends testItCanReadTestedFile
-     * @param string $fileContents
+     * @param DatasetRequest $request
      * @return array
      */
-    public function testItDecodeFileIntoJsonAndGetFirstObject(string $fileContents): array
+    public function testItDecodeRequestBodyIntoJsonAndGetFirstObject(DatasetRequest $request): array
     {
-        $this->assertJson($fileContents);
+        $this->assertJson($request->getBody());
 
-        $jsonData = \json_decode($fileContents, true);
+        $data = $request->asArray();
 
-        $firstObject = $jsonData['objects'][0];
+        $firstObject = $data['objects'][0];
 
         $this->assertIsArray($firstObject);
         $this->assertArrayHasKey('id', $firstObject);
 
-        return $jsonData['objects'];
+        return $data['objects'];
     }
 
     /**
-     * @depends testItDecodeFileIntoJsonAndGetFirstObject
-     * @param array $jsonData
+     * @depends testItDecodeRequestBodyIntoJsonAndGetFirstObject
+     * @param array $data
      * @return void
      */
-    public function testItCanGroupObjectsByType(array $jsonData)
+    public function testItCanGroupObjectsByType(array $data)
     {
         $groupedByType = [];
 
-        foreach ($jsonData as $object) {
+        foreach ($data as $object) {
             $groupedByType[$object['type']][] = $object;
         }
 

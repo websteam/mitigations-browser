@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "spatie/data-transfer-object": "^2.6"
+        "spatie/data-transfer-object": "^2.6",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

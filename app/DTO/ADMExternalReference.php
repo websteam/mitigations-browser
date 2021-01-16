@@ -1,18 +1,18 @@
 <?php
 
 
-namespace App\Dto;
+namespace App\DTO;
 
 
 use Spatie\DataTransferObject\DataTransferObject;
 
-class SDOExternalReference extends DataTransferObject
+class ADMExternalReference extends DataTransferObject
 {
     public ?string $external_id;
 
-    public string $url;
+    public ?string $url;
 
-    public string $source_name;
+    public ?string $source_name;
 
     public ?string $description;
 }
