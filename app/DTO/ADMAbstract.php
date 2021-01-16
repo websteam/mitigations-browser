@@ -15,6 +15,8 @@ abstract class ADMAbstract extends DataTransferObject
 {
     const TYPE = 'attack-pattern';
 
+    public string $type = self::TYPE;
+
     public string $id;
 
     public ?string $name;
@@ -24,6 +26,13 @@ abstract class ADMAbstract extends DataTransferObject
     public \DateTimeInterface $created;
 
     public \DateTimeInterface $modified;
+
+    public function __construct(array $parameters = [])
+    {
+        parent::__construct($parameters);
+
+        $this->type = static::TYPE;
+    }
 
     abstract public static function fromArray(array $data): self;
 

@@ -12,8 +12,6 @@ class ADMTechniqueData extends ADMAbstract
 
     public bool $x_mitre_is_subtechnique = false;
 
-    protected string $type = 'attack-pattern';
-
     public static function fromArray(array $data): self
     {
         return new self([
