@@ -27,7 +27,7 @@ class DTOParsingADMTest extends TestCase
 
         $this->assertInstanceOf(ADMAbstract::class, $admTacticData);
         $this->assertEquals('x-mitre-tactic--1', $admTacticData->id);
-        $this->assertEquals('tactic-name', $admTacticData->slug);
+        $this->assertEquals('tactic-name', $admTacticData->x_mitre_shortname);
         $this->assertIsIterable($admTacticData->external_references);
         $this->assertInstanceOf(\DateTimeInterface::class, $admTacticData->created);
     }

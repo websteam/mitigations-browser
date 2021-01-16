@@ -13,26 +13,33 @@ use Spatie\DataTransferObject\DataTransferObject;
  */
 abstract class ADMAbstract extends DataTransferObject
 {
-    const TYPE = 'attack-pattern';
+    const TYPE_TACTIC = 'x-mitre-tactic';
 
-    public string $type = self::TYPE;
+    const TYPE_TECHNIQUE = 'attack-pattern';
+
+    const TYPE_RELATIONSHIP = 'relationship';
+
+    public string $type = self::TYPE_TECHNIQUE;
 
     public string $id;
 
     public ?string $name;
 
+    public ?string $x_mitre_shortname;
+
+    public ?bool $x_mitre_is_subtechnique;
+
     public ?string $description;
+
+    public ?string $relationship_type;
+
+    public ?string $source_ref;
+
+    public ?string $target_ref;
 
     public \DateTimeInterface $created;
 
     public \DateTimeInterface $modified;
-
-    public function __construct(array $parameters = [])
-    {
-        parent::__construct($parameters);
-
-        $this->type = static::TYPE;
-    }
 
     abstract public static function fromArray(array $data): self;
 

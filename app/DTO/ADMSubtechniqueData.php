@@ -8,9 +8,9 @@ class ADMSubtechniqueData extends ADMAbstract
 {
     use ADMHasExternalReferences;
 
-    const TYPE = 'attack-pattern';
+    public string $type = ADMAbstract::TYPE_TECHNIQUE;
 
-    public bool $x_mitre_is_subtechnique = true;
+    public ?bool $x_mitre_is_subtechnique = true;
 
     public static function fromArray(array $data): self
     {
@@ -27,7 +27,7 @@ class ADMSubtechniqueData extends ADMAbstract
 
     public static function matches(array $data): bool
     {
-        return $data['type'] == 'attack-pattern'
+        return $data['type'] == ADMAbstract::TYPE_TECHNIQUE
             && isset($data['x_mitre_is_subtechnique'])
             && $data['x_mitre_is_subtechnique'] === true;
     }

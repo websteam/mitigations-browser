@@ -6,13 +6,11 @@ use DateTime;
 
 class ADMRelationshipData extends ADMAbstract
 {
-    const TYPE = 'relationship';
+    const RELATIONSHIP_SUBTECHNIQUE_OF = 'subtechnique-of';
 
-    public string $relationship_type;
+    public string $type = ADMAbstract::TYPE_RELATIONSHIP;
 
-    public string $source_ref;
-
-    public string $target_ref;
+    public ?string $relationship_type;
 
     public static function fromArray(array $data): self
     {
@@ -28,7 +26,7 @@ class ADMRelationshipData extends ADMAbstract
 
     public static function matches(array $data): bool
     {
-        return $data['type'] == static::TYPE
+        return $data['type'] == ADMAbstract::TYPE_RELATIONSHIP
             && array_key_exists('relationship_type', $data);
     }
 }
