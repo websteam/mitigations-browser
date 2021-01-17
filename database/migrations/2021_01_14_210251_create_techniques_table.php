@@ -15,16 +15,16 @@ class CreateTechniquesTable extends Migration
     {
         Schema::create('techniques', function (Blueprint $table) {
             $table->string('id')->unique();
-            $table->string('parent_id');
-            $table->string('external_id');
+            $table->string('parent_id')->nullable();
+            $table->string('external_id')->nullable();
 
             $table->string('name');
             $table->text('description');
-            $table->string('version');
-            $table->primary('id');
+            $table->string('version')->nullable();
 
             $table->timestamps();
 
+            $table->primary('id');
             $table->foreign('parent_id')
                 ->references('id')->on('techniques')
                 ->onDelete('cascade');

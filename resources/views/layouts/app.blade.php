@@ -35,9 +35,9 @@
 
 @show
 
-<div class="container">
+<main class="site-main">
     @yield('content')
-</div>
+</main>
 </body>
 
 </html>

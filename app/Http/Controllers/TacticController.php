@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tactic;
+use App\Models\Technique;
+use App\Repository\TechniqueRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,11 +17,15 @@ class TacticController extends Controller
      *
      * @return Application|Factory|View|Response
      */
-    public function index()
+    public function index(TechniqueRepositoryInterface $techniqueRepository)
     {
         $tactics = Tactic::all();
+        $techniquesCount = Technique::where([
+            'parent_id' => null
+        ])->count();
 
-        return view('tactics.index', compact('tactics'));
+
+        return view('tactics.index', compact('tactics', 'techniquesCount'));
     }
 
     /**

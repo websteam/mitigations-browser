@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $techniques->external_id }}</td>
                 <td>{{ $techniques->name }}</td>
-                <td>{{ $techniques->description }}</td>
+                <td>{!! $techniques->excerpt !!}</td>
             </tr>
         @endforeach
     </table>

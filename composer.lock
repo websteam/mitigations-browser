@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e79cca6e7302a54430804f1a46d03327",
+    "content-hash": "544d75cd8b9973726be67af8628b9ca7",
     "packages": [
+        {
+            "name": "alecrabbit/php-cli-snake",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-cli-snake.git",
+                "reference": "2312ac6a6e19ae22a05aec9f4ea70d3063dfde46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-cli-snake/zipball/2312ac6a6e19ae22a05aec9f4ea70d3063dfde46",
+                "reference": "2312ac6a6e19ae22a05aec9f4ea70d3063dfde46",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^4.2",
+                "phpunit/phpunit": "^9.5",
+                "react/event-loop": "^1.1",
+                "symfony/var-dumper": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AlecRabbit\\Snake\\": "src\\Snake"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Lightweight cli spinner with zero dependencies",
+            "keywords": [
+                "256color",
+                "8bit",
+                "ansi",
+                "cli",
+                "color",
+                "colorful",
+                "console",
+                "php",
+                "snake",
+                "spinner"
+            ],
+            "support": {
+                "issues": "https://github.com/alecrabbit/php-cli-snake/issues",
+                "source": "https://github.com/alecrabbit/php-cli-snake/tree/0.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/alecrabbit",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-12-19T18:42:31+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.2",
@@ -7403,7 +7461,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^7.4|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": {
         "ext-json": "*"

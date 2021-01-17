@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTacticsTechniquesTable extends Migration
+class CreateTacticTechniqueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTacticsTechniquesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tactics_techniques', function (Blueprint $table) {
+        Schema::create('tactic_technique', function (Blueprint $table) {
             $table->id();
-            $table->string('source_id');
-            $table->string('target_id');
+            $table->string('tactic_id');
+            $table->string('technique_id');
 
-            $table->foreign('source_id')
+            $table->foreign('tactic_id')
                 ->references('id')
                 ->on('tactics');
-            $table->foreign('target_id')
+            $table->foreign('technique_id')
                 ->references('id')
                 ->on('techniques');
 
@@ -36,6 +36,6 @@ class CreateTacticsTechniquesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tactics_techniques');
+        Schema::dropIfExists('tactic_technique');
     }
 }

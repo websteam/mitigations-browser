@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasExcerpt;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Tactic
+ * @package App\Models
+ * @mixin Builder
+ */
 class Tactic extends Model
 {
-    use HasFactory;
+    use HasFactory, HasExcerpt;
 
     protected $table = 'tactics';
-    public $timestamps = true;
+    public $incrementing = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -19,6 +27,11 @@ class Tactic extends Model
         'slug',
         'description',
         'created_at',
-        'modified_at',
+        'updated_at',
     ];
+
+    public function techniques()
+    {
+        return $this->belongsToMany(Technique::class);
+    }
 }

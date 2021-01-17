@@ -17,12 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('tactics', \App\Http\Controllers\TacticController::class)->only([
-    'index',
-    'show',
-]);
+Route::get('tactics', '\App\Http\Controllers\TacticController@index');
+Route::get('tactics/:external_id', '\App\Http\Controllers\TacticController@show');
 
-Route::resource('techniques', \App\Http\Controllers\TechniqueController::class)->only([
-    'index',
-    'show',
-]);
+Route::get('techniques', '\App\Http\Controllers\TechniqueController@index');
+Route::get('techniques/:external_id', '\App\Http\Controllers\TechniqueController@show');
