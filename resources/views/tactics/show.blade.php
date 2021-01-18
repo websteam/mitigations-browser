@@ -15,15 +15,15 @@
         <div class="col-lg-4">
             <div class="border rounded p-3">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    {{ $tactic->name }}
+                    <strong>ID:</strong>
+                    {{ $tactic->external_id }}
                 </div>
                 <div class="form-group">
-                    <strong>Date Created:</strong>
+                    <strong>Created:</strong>
                     {{ $tactic->created_at }}
                 </div>
                 <div class="form-group">
-                    <strong>Date Modified:</strong>
+                    <strong>Last Modified:</strong>
                     {{ $tactic->updated_at }}
                 </div>
             </div>
@@ -53,15 +53,31 @@
                 </thead>
                 @foreach ($tactic->techniques as $technique)
                     <tr>
-                        <td colspan="2">{{ $technique->external_id }}</td>
-                        <td>{{ $technique->name }}</td>
+                        <td colspan="2">
+                            <a href="{{ route('techniques_show', ['external_id' => $technique->external_id]) }}">
+                                {{ $technique->external_id }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ route('techniques_show', ['external_id' => $technique->external_id]) }}">
+                                {{ $technique->name }}
+                            </a>
+                        </td>
                         <td>@markdown($technique->excerpt)</td>
                     </tr>
                     @foreach ($technique->subtechniques as $subtechnique)
                         <tr class="subtechnique">
                             <td></td>
-                            <td>{{ $subtechnique->external_id }}</td>
-                            <td>{{ $subtechnique->name }}</td>
+                            <td>
+                                <a href="{{ route('techniques_show', ['external_id' => $subtechnique->external_id]) }}">
+                                    {{ $subtechnique->external_id }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('techniques_show', ['external_id' => $subtechnique->external_id]) }}">
+                                    {{ $subtechnique->name }}
+                                </a>
+                            </td>
                             <td>@markdown($subtechnique->excerpt)</td>
                         </tr>
                     @endforeach

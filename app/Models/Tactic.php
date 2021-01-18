@@ -6,6 +6,7 @@ use App\Models\Traits\HasExcerpt;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Tactic
@@ -30,7 +31,7 @@ class Tactic extends Model
         'updated_at',
     ];
 
-    public function techniques()
+    public function techniques(): BelongsToMany
     {
         return $this->belongsToMany(Technique::class);
     }

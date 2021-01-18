@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Models\Traits\HasExcerpt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Technique
@@ -30,18 +33,26 @@ class Technique extends Model
         'modified_at',
     ];
 
-    public function tactics()
+    public function tactics(): BelongsToMany
     {
         return $this->belongsToMany(Tactic::class);
     }
 
-    public function subtechniques()
+    public function subtechniques(): HasMany
     {
-        return $this->hasMany(Technique::class, 'parent_id');
+        return $this->hasMany(Technique::class, 'parent_id')->orderBy('external_id');
     }
 
-    public function technique()
+    public function technique(): BelongsTo
     {
-        return $this->belongsTo(Technique::class, 'parent_id')->where('parent_id', 0);
+        return $this->belongsTo(Technique::class, 'parent_id', 'id');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsSubtechniqueAttribute(): bool
+    {
+        return null !== $this->attributes['parent_id'];
     }
 }

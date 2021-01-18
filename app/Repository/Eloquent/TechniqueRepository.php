@@ -6,11 +6,14 @@ use App\DTO\ADMAbstract;
 use App\DTO\ADMSubtechniqueData;
 use App\DTO\ADMTechniqueData;
 use App\Models\Technique;
+use App\Repository\Eloquent\Traits\FindByExternalId;
 use App\Repository\TechniqueRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class TechniqueRepository extends BaseRepository implements TechniqueRepositoryInterface
 {
+    use FindByExternalId;
+
     /**
      * UserRepository constructor.
      *

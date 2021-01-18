@@ -4,10 +4,13 @@ namespace App\Repository\Eloquent;
 
 use App\DTO\ADMTacticData;
 use App\Models\Tactic;
+use App\Repository\Eloquent\Traits\FindByExternalId;
 use App\Repository\TacticRepositoryInterface;
 
 class TacticRepository extends BaseRepository implements TacticRepositoryInterface
 {
+    use FindByExternalId;
+
     /**
      * UserRepository constructor.
      *
@@ -29,10 +32,5 @@ class TacticRepository extends BaseRepository implements TacticRepositoryInterfa
             'created_at' => $tactic->created,
             'updated_at' => $tactic->modified
         ]);
-    }
-
-    public function findByExternalId(string $externalId)
-    {
-        return $this->model->where('external_id', $externalId)->first();
     }
 }
