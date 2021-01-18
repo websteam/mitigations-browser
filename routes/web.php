@@ -17,8 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('tactics', '\App\Http\Controllers\TacticController@index');
-Route::get('tactics/:external_id', '\App\Http\Controllers\TacticController@show');
+Route::get('tactics', '\App\Http\Controllers\TacticController@index')->name('tactics_index');
+Route::get('tactics/{external_id}', '\App\Http\Controllers\TacticController@show')->name('tactics_show');
 
-Route::get('techniques', '\App\Http\Controllers\TechniqueController@index');
-Route::get('techniques/:external_id', '\App\Http\Controllers\TechniqueController@show');
+Route::get('techniques/{external_id}', '\App\Http\Controllers\TechniqueController@show');

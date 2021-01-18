@@ -3,35 +3,35 @@
 @section('title', 'Tactics')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Tactics</h2>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-end">
+        <h2>Tactics</h2>
+        <div>
+            <p>Tactics: {{ count($tactics) }}</p>
         </div>
-
-        <table class="table table-bordered table-responsive-lg">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            @foreach ($tactics as $tactic)
-                <tr>
-                    <td>{{ $tactic->external_id }}</td>
-                    <td>{{ $tactic->name }}</td>
-                    <td>{!! $tactic->excerpt !!}</td>
-                </tr>
-                @foreach ($tactic->techniques as $technique)
-                    <tr>
-                        <td>{{ $technique->external_id  }}</td>
-                        <td>{{ $technique->name }}</td>
-                        <td>{{ $technique->excerpt }}</td>
-                    </tr>
-                @endforeach
-            @endforeach
-        </table>
     </div>
+
+    <table class="table table-light table-striped table-bordered table-responsive-lg">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+        </tr>
+        </thead>
+        @foreach ($tactics as $tactic)
+            <tr>
+                <td>
+                    <a href="{{ route('tactics_show', ['external_id' => $tactic->external_id]) }}">
+                        {{ $tactic->external_id }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('tactics_show', ['external_id' => $tactic->external_id]) }}">
+                        {{ $tactic->name }}
+                    </a>
+                </td>
+                <td>@markdown($tactic->excerpt)</td>
+            </tr>
+        @endforeach
+    </table>
 @endsection

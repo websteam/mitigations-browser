@@ -2,11 +2,11 @@
 
 namespace App\Repository;
 
-use Ramsey\Collection\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
-interface TechniqueRepositoryInterface
+interface TechniqueRepositoryInterface extends EloquentRepositoryInterface
 {
-    public function techniques(): Collection;
+    public function allTechniques(): Collection;
 
-    public function getSubtechniques(): Collection;
+    public function allSubtechniques(): Collection;
 }

@@ -30,4 +30,9 @@ class TacticRepository extends BaseRepository implements TacticRepositoryInterfa
             'updated_at' => $tactic->modified
         ]);
     }
+
+    public function findByExternalId(string $externalId)
+    {
+        return $this->model->where('external_id', $externalId)->first();
+    }
 }

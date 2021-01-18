@@ -7,7 +7,7 @@ use App\DTO\ADMSubtechniqueData;
 use App\DTO\ADMTechniqueData;
 use App\Models\Technique;
 use App\Repository\TechniqueRepositoryInterface;
-use Ramsey\Collection\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class TechniqueRepository extends BaseRepository implements TechniqueRepositoryInterface
 {
@@ -37,14 +37,13 @@ class TechniqueRepository extends BaseRepository implements TechniqueRepositoryI
         ]);
     }
 
-    public function techniques(): Collection
+    public function allTechniques(): Collection
     {
-        return $this->model->where();
-        // TODO: Implement techniques() method.
+        return $this->model->where('parent_id', null)->get();
     }
 
-    public function getSubtechniques(): Collection
+    public function allSubtechniques(): Collection
     {
-        // TODO: Implement getSubtechniques() method.
+        return $this->model->where('parent_id', '<>', 'null')->get();
     }
 }

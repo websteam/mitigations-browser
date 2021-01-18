@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-interface TacticRepositoryInterface
+interface TacticRepositoryInterface extends EloquentRepositoryInterface
 {
 
 }

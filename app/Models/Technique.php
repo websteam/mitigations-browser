@@ -37,11 +37,11 @@ class Technique extends Model
 
     public function subtechniques()
     {
-        return $this->hasMany(Technique::class, 'parent_id')->with('subtechniques');
+        return $this->hasMany(Technique::class, 'parent_id');
     }
 
     public function technique()
     {
-        return $this->belongsTo(Technique::class, 'parent_id')->where('parent_id', 0)->with('parent');
+        return $this->belongsTo(Technique::class, 'parent_id')->where('parent_id', 0);
     }
 }
