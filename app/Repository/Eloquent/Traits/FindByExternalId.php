@@ -14,6 +14,6 @@ trait FindByExternalId
 {
     public function findByExternalId(string $externalId)
     {
-        return $this->model->where('external_id', $externalId)->first();
+        return $this->model->where('external_id', $externalId)->firstOrFail();
     }
 }

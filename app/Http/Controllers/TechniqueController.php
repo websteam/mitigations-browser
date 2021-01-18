@@ -41,10 +41,6 @@ class TechniqueController extends Controller
     {
         $technique = $this->repository->findByExternalId($external_id);
 
-        if (!$technique) {
-            throw new EntityNotFoundException();
-        }
-
         return view('techniques.show', compact('technique'));
     }
 }

@@ -47,10 +47,6 @@ class TacticController extends Controller
     {
         $tactic = $this->repository->findByExternalId($external_id);
 
-        if (!$tactic) {
-            throw new EntityNotFoundException();
-        }
-
         $techniquesCount = $techniqueRepository->allTechniques()->count();
         $subtechniquesCount = $techniqueRepository->allSubtechniques()->count();
 

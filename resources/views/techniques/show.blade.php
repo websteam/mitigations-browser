@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Technique ' . $technique->external_id)
+
 @section('content')
     <div class="pull-right mb-2">
         @if ($technique->is_subtechnique)
@@ -70,7 +72,7 @@
 
         <div class="card rounded overflow-hidden">
             <div class="table-responsive">
-                <table class="table table-light table-bordered">
+                <table class="table table-light table-bordered mb-0">
                     <thead class="table-dark">
                     <tr>
                         <th colspan="2" scope="col">ID</th>

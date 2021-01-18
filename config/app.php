@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'owner_url' => env('APP_OWNER_URL', 'https://github.com/websteam'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
