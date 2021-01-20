@@ -65,4 +65,9 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         return $this->model->saveMany($models);
     }
+
+    public function first(): ?Model
+    {
+        return $this->model->first();
+    }
 }

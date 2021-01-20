@@ -23,7 +23,7 @@ class TacticRepository extends BaseRepository implements TacticRepositoryInterfa
 
     public function fromAdm(ADMTacticData $tactic): Tactic
     {
-        return new Tactic([
+        return Tactic::firstOrCreate([
             'id' => $tactic->id,
             'external_id' => $tactic->getExternalId(),
             'name' => $tactic->name,

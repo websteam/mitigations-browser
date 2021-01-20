@@ -35,4 +35,12 @@ class Tactic extends Model
     {
         return $this->belongsToMany(Technique::class);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description
+        ];
+    }
 }

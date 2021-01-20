@@ -10,13 +10,14 @@
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "alecrabbit/php-cli-snake": "^0.6.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "graham-campbell/markdown": "^13.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
+        "laravel/scout": "^8.5",
         "laravel/tinker": "^2.5",
+        "matchish/laravel-scout-elasticsearch": "^4.0",
         "spatie/data-transfer-object": "^2.6"
     },
     "require-dev": {
@@ -26,7 +27,7 @@
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3",
-      "ext-json": "*"
+        "ext-json": "*"
     },
     "config": {
         "optimize-autoloader": true,

@@ -19,7 +19,7 @@ interface EloquentRepositoryInterface
 
     /**
      * @param $id
-     * @return Model
+     * @return Model|null
      */
     public function find($id): ?Model;
 
@@ -27,4 +27,9 @@ interface EloquentRepositoryInterface
      * @return Collection
      */
     public function all(): Collection;
+
+    /**
+     * @return Model|null
+     */
+    public function first(): ?Model;
 }

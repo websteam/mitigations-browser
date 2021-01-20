@@ -2,16 +2,12 @@
 
 namespace App\Console\Commands;
 
-use AlecRabbit\Snake\Spinner;
 use App\DTO\ADMAbstract;
 use App\DTO\ADMDataCollection;
 use App\DTO\ADMRelationshipData;
-use App\DTO\ADMSubtechniqueData;
 use App\DTO\ADMTacticData;
-use App\DTO\ADMTechniqueData;
 use App\Http\Mitre\DatasetRequest;
 use App\Http\Mitre\GetDatasetFromUriException;
-use App\Models\Tactic;
 use App\Repository\Eloquent\TacticRepository;
 use App\Repository\Eloquent\TechniqueRepository;
 use App\Repository\TacticRepositoryInterface;
@@ -35,7 +31,7 @@ class MitreAttack extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'This command is used to obtain dataset from Mitre\'s ATT&CK official repository and store it into application database';
 
     /**
      * Create a new command instance.
@@ -62,7 +58,6 @@ class MitreAttack extends Command
             $this->line('Fetching json data...');
 
             try {
-
                 $request = new DatasetRequest();
                 $request->get();
 
@@ -71,10 +66,15 @@ class MitreAttack extends Command
                 $bundle = $request->asArray()['objects'];
                 $collection = ADMDataCollection::create($bundle);
 
+                $this->line('Populating database...');
+
+                $hasTactics = $tacticRepository->first();
+
                 $this->output->progressStart($collection->count());
 
                 /** @var ADMTacticData[]|ADMDataCollection $tactics */
-                $tactics = $collection->where('type', ADMAbstract::TYPE_TACTIC);
+                $tactics = $collection
+                    ->where('type', ADMAbstract::TYPE_TACTIC);
 
                 DB::beginTransaction();
 
@@ -104,14 +104,10 @@ class MitreAttack extends Command
                             return $item->source_ref;
                         }));
 
-                        $subtechniques = [];
-
                         foreach ($technique->subtechniques as &$subtechnique) {
                             $subtechniqueEntity = $techniqueRepository->fromAdm($subtechnique);
                             $subtechniqueEntity->parent_id = $technique->id;
                             $subtechniqueEntity->save();
-
-                            $subtechniques[] = $subtechniqueEntity;
 
                             $this->output->progressAdvance();
                         }
@@ -127,8 +123,6 @@ class MitreAttack extends Command
                 }
 
                 $this->output->progressFinish();
-
-                $this->line('Populating database...');
 
             } catch (QueryException $e) {
                 DB::rollBack();

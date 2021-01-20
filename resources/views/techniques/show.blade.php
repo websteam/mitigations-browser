@@ -5,12 +5,12 @@
 @section('content')
     <div class="pull-right mb-2">
         @if ($technique->is_subtechnique)
-            <a class="btn btn-primary" href="{{ route('techniques_show', [
+            <a class="btn btn-outline-dark" href="{{ route('techniques_show', [
             'external_id' => $technique->technique->external_id
             ]) }}" title="Go back"><i
                     class="fas fa-arrow-left"></i> Go back</a>
         @else
-            <a class="btn btn-primary" href="{{ route('tactics_show', [
+            <a class="btn btn-outline-dark" href="{{ route('tactics_show', [
             'external_id' => $technique->tactics->first()->external_id
             ]) }}" title="Go back"><i
                     class="fas fa-arrow-left"></i> Go back</a>

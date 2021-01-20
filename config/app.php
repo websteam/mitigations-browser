@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        Matchish\ScoutElasticSearch\ElasticSearchServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -88,6 +88,14 @@
         .site-footer__link {
             color: #4a5568;
         }
+
+        .input-group-append .btn {
+            height: 38px;
+            -webkit-border-radius: 0 8px 8px 0;
+            -moz-border-radius: 0 8px 8px 0;
+            border-radius: 0 8px 8px 0;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -96,8 +104,21 @@
 
 @show
 
-<header class="site-header">
+<header class="site-header d-flex align-items-center justify-content-between">
     <h1 class="site-header__title">{{ config('app.name') }}</h1>
+
+    <form action="" method="GET" class="mb-0">
+        @csrf
+
+        <div class="input-group mb-0">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search input">
+            <div class="input-group-append">
+                <button class="btn btn-outline-dark" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 </header>
 <main class="site-main clearfix">
     <nav class="site-navbar">
