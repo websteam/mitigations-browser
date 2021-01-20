@@ -1,25 +1,26 @@
+
 # Mitigations Browser
 
-This repo is basicaly a ripoff of [Mitre's ATT&CK website](https://attack.mitre.org/tactics/enterprise/) - an open source knowledge base of adversary tactics and techniques based on real-world observations. #with_laravel
+This repo is basically a ripoff of [Mitre's ATT&CK website](https://attack.mitre.org/tactics/enterprise/) - an open source knowledge base of adversary tactics and techniques based on real-world observations. #with_laravel
 
-## About
-
-TODO
 
 ## Installation
 
 The process is simple across any LAMP-based environment:
 
-- copy the .env.example into .env
-- TODO
+- copy the .env.example into .env with sufficient 
+- run migrations with `php artisan migrate`
 
 ## Available commands
 
-TODO
+`php artisan mitre:attack` - Fetch and populate dataset from Mitre's ATT&CK github into database.
 
 ## Tests
 
-TODO
+You can run tests with `php artisan test` command.  
+There are two test suites:
+- Units
+- Functional
 
 ## License
 
