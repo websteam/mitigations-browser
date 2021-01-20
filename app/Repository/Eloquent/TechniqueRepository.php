@@ -30,7 +30,7 @@ class TechniqueRepository extends BaseRepository implements TechniqueRepositoryI
      */
     public function fromAdm(ADMAbstract $technique): Technique
     {
-        return Technique::firstOrCreate([
+        return $this->model->firstOrNew([
             'id' => $technique->id,
             'external_id' => $technique->getExternalId(),
             'name' => $technique->name,

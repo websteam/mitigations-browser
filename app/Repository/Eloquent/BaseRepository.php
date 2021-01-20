@@ -30,7 +30,7 @@ class BaseRepository implements EloquentRepositoryInterface
      *
      * @return Model
      */
-    public function create(array $attributes): Model
+    public function create(array $attributes = []): Model
     {
         return $this->model->create($attributes);
     }
@@ -68,6 +68,11 @@ class BaseRepository implements EloquentRepositoryInterface
 
     public function first(): ?Model
     {
-        return $this->model->first();
+        return $this->model->all()->first();
+    }
+
+    public function last(): ?Model
+    {
+        return $this->model->all()->last();
     }
 }

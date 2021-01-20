@@ -32,4 +32,9 @@ interface EloquentRepositoryInterface
      * @return Model|null
      */
     public function first(): ?Model;
+
+    /**
+     * @return Model|null
+     */
+    public function last(): ?Model;
 }

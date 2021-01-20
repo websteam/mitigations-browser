@@ -33,4 +33,19 @@ class MitreAttackCommandTest extends TestCase
             ->expectsOutput('Populating database...')
             ->assertExitCode(0);
     }
+
+    /**
+     * @depends testItCanInvokeCommandWithConfirmation
+     */
+    public function testItWouldTryToUpdateWithNothingToUpdate()
+    {
+        $this->artisan('mitre:attack')
+            ->expectsConfirmation('Do you wish to continue? This action is *IRREVERSIBLE*', 'yes')
+            ->expectsOutput('Fetching json data...')
+            ->expectsOutput('Building relationships...')
+            ->expectsOutput('There is already some data in database.')
+            ->expectsOutput('Preparing data for update...')
+            ->expectsOutput('Nothing to update. Exiting now.')
+            ->assertExitCode(2);
+    }
 }

@@ -8,6 +8,7 @@ use App\DTO\ADMRelationshipData;
 use App\DTO\ADMTacticData;
 use App\Http\Mitre\DatasetRequest;
 use App\Http\Mitre\GetDatasetFromUriException;
+use App\Repository\Eloquent\MitreMigrationRepository;
 use App\Repository\Eloquent\TacticRepository;
 use App\Repository\Eloquent\TechniqueRepository;
 use App\Repository\TacticRepositoryInterface;
@@ -48,9 +49,14 @@ class MitreAttack extends Command
      *
      * @param TacticRepository|TacticRepositoryInterface $tacticRepository
      * @param TechniqueRepository|TechniqueRepositoryInterface $techniqueRepository
+     * @param MitreMigrationRepository $migrationRepository
      * @return int
      */
-    public function handle(TacticRepositoryInterface $tacticRepository, TechniqueRepositoryInterface $techniqueRepository): int
+    public function handle(
+        TacticRepositoryInterface $tacticRepository,
+        TechniqueRepositoryInterface $techniqueRepository,
+        MitreMigrationRepository $migrationRepository
+    ): int
     {
         $sure = $this->argument('sure');
 
@@ -66,11 +72,29 @@ class MitreAttack extends Command
                 $bundle = $request->asArray()['objects'];
                 $collection = ADMDataCollection::create($bundle);
 
+                $lastMigration = $migrationRepository->last();
+
+                if (!is_null($lastMigration)) {
+                    $this->info('There is already some data in database.');
+                    $this->info('Preparing data for update...');
+
+                    $collection = $collection->where('modified', '>', $lastMigration->migration_date);
+
+                    if ($collection->count() == 0) {
+                        $this->info('Nothing to update. Exiting now.');
+
+                        return 2;
+                    }
+                }
+
                 $this->line('Populating database...');
 
-                $hasTactics = $tacticRepository->first();
-
-                $this->output->progressStart($collection->count());
+                $this->output->progressStart(
+                    $collection->whereIn(
+                        'type',
+                        [ADMAbstract::TYPE_TACTIC, ADMAbstract::TYPE_TECHNIQUE]
+                    )->count()
+                );
 
                 /** @var ADMTacticData[]|ADMDataCollection $tactics */
                 $tactics = $collection
@@ -140,6 +164,7 @@ class MitreAttack extends Command
                 return $e->getCode();
             }
 
+            $migrationRepository->create();
             DB::commit();
 
             return 0;

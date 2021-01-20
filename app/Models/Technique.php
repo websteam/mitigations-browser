@@ -20,7 +20,7 @@ class Technique extends Model
 
     protected $table = 'techniques';
     public $incrementing = false;
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
