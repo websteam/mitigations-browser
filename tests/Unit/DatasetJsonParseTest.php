@@ -11,7 +11,7 @@ class DatasetJsonParseTest extends TestCase
     /**
      * @throws GetDatasetFromUriException
      */
-    public function testItCouldNotGetDataset()
+    public function testItCouldNotGetDatasetFromNonAccessibleUri()
     {
         $request = new DatasetRequest('http://unexisting.domain.com');
 

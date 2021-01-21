@@ -72,9 +72,10 @@ class MitreAttack extends Command
                 $bundle = $request->asArray()['objects'];
                 $collection = ADMDataCollection::create($bundle);
 
+                $sampleTactic = $tacticRepository->first();
                 $lastMigration = $migrationRepository->last();
 
-                if (!is_null($lastMigration)) {
+                if (!is_null($lastMigration) && $sampleTactic->exists) {
                     $this->info('There is already some data in database.');
                     $this->info('Preparing data for update...');
 

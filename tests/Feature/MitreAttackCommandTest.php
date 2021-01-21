@@ -9,13 +9,6 @@ use Tests\TestCase;
 
 class MitreAttackCommandTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Artisan::call('migrate:fresh');
-    }
-
     public function testItCanInvokeCommandWithCancel()
     {
         $this->artisan('mitre:attack')
@@ -26,6 +19,8 @@ class MitreAttackCommandTest extends TestCase
 
     public function testItCanInvokeCommandWithConfirmation()
     {
+        Artisan::call('migrate:fresh');
+
         $this->artisan('mitre:attack')
             ->expectsConfirmation('Do you wish to continue? This action is *IRREVERSIBLE*', 'yes')
             ->expectsOutput('Fetching json data...')

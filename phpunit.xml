@@ -11,6 +11,7 @@
         <testsuite name="Feature">
             <file>tests/Feature/MitreAttackCommandTest.php</file>
             <file>tests/Feature/RestApiTest.php</file>
+            <file>tests/Feature/SearchTest.php</file>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
