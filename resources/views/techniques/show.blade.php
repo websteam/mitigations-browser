@@ -7,13 +7,13 @@
         @if ($technique->is_subtechnique)
             <a class="btn btn-outline-dark" href="{{ route('techniques_show', [
             'external_id' => $technique->technique->external_id
-            ]) }}" title="Go back"><i
-                    class="fas fa-arrow-left"></i> Go back</a>
+            ]) }}" title="Back to index"><i
+                    class="fas fa-arrow-left"></i> Back to index</a>
         @else
             <a class="btn btn-outline-dark" href="{{ route('tactics_show', [
             'external_id' => $technique->tactics->first()->external_id
-            ]) }}" title="Go back"><i
-                    class="fas fa-arrow-left"></i> Go back</a>
+            ]) }}" title="Back to index"><i
+                    class="fas fa-arrow-left"></i> Back to index</a>
         @endif
     </div>
 
