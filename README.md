@@ -6,8 +6,13 @@ This repo is basically a ripoff of [Mitre's ATT&CK website](https://attack.mitre
 
 ## Installation
 
-The process is simple across any LAMP-based environment:
+The process is simple across any LAMP-based environment.  
+Environment the application is tested with:
+- php 7.4.14
+- mysql 8.0.22
 
+
+Installation steps:
 - copy the .env.example into .env with sufficient 
 - run migrations with `php artisan migrate`
 
