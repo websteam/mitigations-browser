@@ -15,6 +15,15 @@ The process is simple across any LAMP-based environment:
 
 `php artisan mitre:attack` - Fetch and populate dataset from Mitre's ATT&CK github into database.
 
+## REST
+There is also REST api onboard:
+
+| URL | Method | Description |
+| --- | ------ | ----------- | 
+| /api/tactics    | GET    | Collection of all tactics |
+| /api/techniques | GET    | Collection of all techniques/subtechniques |
+| /api/techniques/{external_id} | GET | Technique or subtechnique by external_id |
+
 ## Tests
 
 You can run tests with `php artisan test` command.  
