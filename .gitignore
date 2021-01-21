@@ -14,3 +14,7 @@ yarn-error.log
 
 # OS Specific
 .DS_Store
+
+# Prod
+/.htaccess
+/bak
