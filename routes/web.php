@@ -21,3 +21,5 @@ Route::get('tactics', '\App\Http\Controllers\TacticController@index')->name('tac
 Route::get('tactics/{external_id}', '\App\Http\Controllers\TacticController@show')->name('tactics_show');
 
 Route::get('techniques/{external_id}', '\App\Http\Controllers\TechniqueController@show')->name('techniques_show');
+
+Route::get('search', '\App\Http\Controllers\SearchController@index')->name('search');

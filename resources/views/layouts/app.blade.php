@@ -28,6 +28,14 @@
             margin-bottom: 0;
         }
 
+        .site-header__link {
+            color: #fff;
+        }
+
+        .site-header__link:hover {
+            color: #fff;
+        }
+
         .site-navbar {
             float: left;
             width: 100%;
@@ -105,20 +113,11 @@
 @show
 
 <header class="site-header d-flex align-items-center justify-content-between">
-    <h1 class="site-header__title">{{ config('app.name') }}</h1>
+    <h1 class="site-header__title">
+        <a href="/" class="site-header__link">{{ config('app.name') }}</a>
+    </h1>
 
-    <form action="" method="GET" class="mb-0">
-        @csrf
-
-        <div class="input-group mb-0">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search input">
-            <div class="input-group-append">
-                <button class="btn btn-outline-dark" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+    @include('elements.search')
 </header>
 <main class="site-main clearfix">
     <nav class="site-navbar">

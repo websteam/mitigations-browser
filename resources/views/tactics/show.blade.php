@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="pull-right mb-2">
-        <a class="btn btn-outline-dark" href="{{ route('tactics_index') }}" title="Go back"><i
-                class="fas fa-arrow-left"></i> Go back</a>
+        <a class="btn btn-outline-dark" href="{{ route('tactics_index') }}" title="Back to index"><i
+                class="fas fa-arrow-left"></i> Back to index</a>
     </div>
 
     <h2>{{ $tactic->name }}</h2>
