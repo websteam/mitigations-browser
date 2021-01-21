@@ -19,23 +19,12 @@ class SearchController extends Controller
         $searchQuery = e($request->get('query'));
 
         $queryLike = "%$searchQuery%";
-        $query = DB::table('tactics')
-            ->union(
-                DB::table('techniques')
+        $query = DB::table('techniques')
                 ->select(self::COLUMNS)
                     ->where('name', 'LIKE', $queryLike)
                     ->orWhere('external_id', 'LIKE', $queryLike)
-                    ->orWhere('description', 'LIKE', $queryLike)
-            )
-            ->select(self::COLUMNS)
-            ->where('name', 'LIKE', $queryLike)
-            ->orWhere('external_id', 'LIKE', $queryLike)
-            ->orWhere('description', 'LIKE', $queryLike);
+                    ->orWhere('description', 'LIKE', $queryLike);
 
-        $data = $query->get()->each(function (&$object) {
-            $object->type = Str::startsWith($object->id, 'attack-pattern') ? 'techniques' : 'tactics';
-        });
-
-        return view('search', ['query' => $searchQuery, 'data' => $data]);
+        return view('search', ['query' => $searchQuery, 'techniques' => $query->get()]);
     }
 }

@@ -11,12 +11,12 @@
     </div>
 
     <div class="card rounded overflow-hidden p-3">
-        @if(count($data) > 0)
+        @if(count($techniques) > 0)
             <ul class="list-group">
-                @foreach($data as $object)
-                    <a href="{{ route($object->type . '_show', ['external_id' => $object->external_id]) }}" class="list-group-item">
-                        <h6>{{ $object->external_id }}</h6>
-                        <p class="mb-0">{{ $object->name }}</p>
+                @foreach($techniques as $technique)
+                    <a href="{{ route('techniques_show', ['external_id' => $technique->external_id]) }}" class="list-group-item">
+                        <h6>{{ $technique->external_id }}</h6>
+                        <p class="mb-0">{{ $technique->name }}</p>
                     </a>
                 @endforeach
             </ul>
