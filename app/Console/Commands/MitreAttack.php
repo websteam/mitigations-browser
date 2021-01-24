@@ -88,24 +88,21 @@ class MitreAttack extends Command
                     }
                 }
 
-                $this->line('Populating database...');
-
-                $this->output->progressStart(
-                    $collection->whereIn(
-                        'type',
-                        [ADMAbstract::TYPE_TACTIC, ADMAbstract::TYPE_TECHNIQUE]
-                    )->count()
-                );
-
                 /** @var ADMTacticData[]|ADMDataCollection $tactics */
                 $tactics = $collection
                     ->where('type', ADMAbstract::TYPE_TACTIC);
+
+                $tacticsData = [];
+                $techniquesData = [];
+                $subtechniquesData = [];
+                $tacticTechniqueData = [];
 
                 DB::beginTransaction();
 
                 foreach ($tactics as &$tactic) {
                     $tacticEntity = $tacticRepository->fromAdm($tactic);
-                    $tacticEntity->save();
+
+                    $tacticsData[] = $tacticEntity;
 
                     $tactic->techniques = $collection->where('type', ADMAbstract::TYPE_TECHNIQUE)
                         ->where('x_mitre_is_subtechnique', false)
@@ -113,12 +110,10 @@ class MitreAttack extends Command
                             return $item->getPhaseName() == $tactic->x_mitre_shortname;
                         });
 
-                    $techniques = [];
-
                     foreach ($tactic->techniques as &$technique) {
                         $techniqueEntity = $techniqueRepository->fromAdm($technique);
-                        $techniqueEntity->setAttribute('id', $technique->id);
-                        $techniqueEntity->save();
+
+                        $techniquesData[] = $techniqueEntity;
 
                         /** @var Collection|ADMRelationshipData[] $relations */
                         $relations = $collection->where('type', ADMAbstract::TYPE_RELATIONSHIP)
@@ -131,24 +126,28 @@ class MitreAttack extends Command
 
                         foreach ($technique->subtechniques as &$subtechnique) {
                             $subtechniqueEntity = $techniqueRepository->fromAdm($subtechnique);
-                            $subtechniqueEntity->parent_id = $technique->id;
-                            $subtechniqueEntity->save();
+                            $subtechniqueEntity['parent_id'] = $technique->id;
 
-                            $this->output->progressAdvance();
+                            $subtechniquesData[] = $subtechniqueEntity;
                         }
 
-                        $techniques[] = $techniqueEntity->id;
-
-                        $this->output->progressAdvance();
+                        $tacticTechniqueData[] = [
+                            'tactic_id' => $tactic->id,
+                            'technique_id' => $technique->id
+                        ];
                     }
-
-                    $tacticEntity->techniques()->sync($techniques);
-
-                    $this->output->progressAdvance();
                 }
 
-                $this->output->progressFinish();
+                $this->line('Populating database...');
 
+                DB::table('tactics')->upsert($tacticsData, ['id']);
+                DB::table('techniques')->upsert($techniquesData, ['id']);
+                DB::table('techniques')->upsert($subtechniquesData, ['id']);
+                DB::table('tactic_technique')->upsert(
+                    $tacticTechniqueData,
+                    ['tactic_id'],
+                    ['technique_id']
+                );
             } catch (QueryException $e) {
                 DB::rollBack();
 

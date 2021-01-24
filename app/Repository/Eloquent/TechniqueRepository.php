@@ -8,6 +8,7 @@ use App\DTO\ADMTechniqueData;
 use App\Models\Technique;
 use App\Repository\Eloquent\Traits\FindByExternalId;
 use App\Repository\TechniqueRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class TechniqueRepository extends BaseRepository implements TechniqueRepositoryInterface
@@ -26,18 +27,18 @@ class TechniqueRepository extends BaseRepository implements TechniqueRepositoryI
 
     /**
      * @param ADMTechniqueData|ADMSubtechniqueData|ADMAbstract $technique
-     * @return Technique
+     * @return array
      */
-    public function fromAdm(ADMAbstract $technique): Technique
+    public function fromAdm(ADMAbstract $technique): array
     {
-        return $this->model->firstOrNew([
+        return [
             'id' => $technique->id,
             'external_id' => $technique->getExternalId(),
             'name' => $technique->name,
             'description' => $technique->description,
-            'created_at' => $technique->created,
-            'updated_at' => $technique->modified
-        ]);
+            'created_at' => date('Y-m-d H:i:s', $technique->created->getTimestamp()),
+            'updated_at' => date('Y-m-d H:i:s', $technique->modified->getTimestamp())
+        ];
     }
 
     public function allTechniques(): Collection

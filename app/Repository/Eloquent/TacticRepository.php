@@ -6,6 +6,7 @@ use App\DTO\ADMTacticData;
 use App\Models\Tactic;
 use App\Repository\Eloquent\Traits\FindByExternalId;
 use App\Repository\TacticRepositoryInterface;
+use Illuminate\Support\Carbon;
 
 class TacticRepository extends BaseRepository implements TacticRepositoryInterface
 {
@@ -21,9 +22,9 @@ class TacticRepository extends BaseRepository implements TacticRepositoryInterfa
         parent::__construct($model);
     }
 
-    public function fromAdm(ADMTacticData $tactic): Tactic
+    public function fromAdm(ADMTacticData $tactic): array
     {
-        return $this->model->firstOrNew([
+        return [
             'id' => $tactic->id,
             'external_id' => $tactic->getExternalId(),
             'name' => $tactic->name,
@@ -31,6 +32,6 @@ class TacticRepository extends BaseRepository implements TacticRepositoryInterfa
             'description' => $tactic->description,
             'created_at' => $tactic->created,
             'updated_at' => $tactic->modified
-        ]);
+        ];
     }
 }

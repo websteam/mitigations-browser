@@ -14,7 +14,6 @@ class CreateTacticTechniqueTable extends Migration
     public function up()
     {
         Schema::create('tactic_technique', function (Blueprint $table) {
-            $table->id();
             $table->string('tactic_id');
             $table->string('technique_id');
 
@@ -25,7 +24,7 @@ class CreateTacticTechniqueTable extends Migration
                 ->references('id')
                 ->on('techniques');
 
-            $table->timestamps();
+            $table->primary(['tactic_id', 'technique_id']);
         });
     }
 
